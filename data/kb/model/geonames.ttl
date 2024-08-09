@@ -1,0 +1,114 @@
+<https://sws.geonames.org/4699066/> a gn:Feature;
+    geo:lat "29.76328";
+    geo:long "-95.36327";
+    skos:altLabel "Houston"@en, "Houston, TX"@en, "Space City"@en, "Houston, Texas"@en,
+    "H-Town"@en, "City of Houston"@en, "USHOU"@en, "Houston TX"@en;
+    gn:featureCode <http://www.geonames.org/ontology#P.PPLA2>;
+    gn:countryCode "US";
+    gn:name "Houston";
+    gn:featureClass <http://www.geonames.org/ontology#P>;
+    gn:officialName "Houston"@en;
+    gn:population "2296224";
+    gn:parentCountry <https://sws.geonames.org/6252001/>;
+    gn:parentADM1 <https://sws.geonames.org/4736286/>;
+.
+
+<https://sws.geonames.org/5531553/> a gn:Feature;
+    geo:lat "36.19837";
+    geo:long "-101.19238";
+    skos:altLabel "Spearman"@en, "Spearman, Texas"@en, "Spearman, TX"@en;
+    gn:featureCode <http://www.geonames.org/ontology#P.PPLA2>;
+    gn:countryCode "US";
+    gn:name "Spearman";
+    gn:featureClass <http://www.geonames.org/ontology#P>;
+    gn:parentCountry <https://sws.geonames.org/6252001/>;
+    gn:parentADM1 <https://sws.geonames.org/4736286/>;
+.
+
+<https://sws.geonames.org/5230207/> a gn:Feature;
+    geo:lat "44.22747";
+    geo:long "-97.30785";
+    skos:altLabel "Oldham"@en, "Oldham, South Dakota"@en, "Oldham, SD"@en;
+    gn:featureCode <http://www.geonames.org/ontology#P.PPL>;
+    gn:countryCode "US";
+    gn:name "Oldham";
+    gn:featureClass <http://www.geonames.org/ontology#P>;
+    gn:parentCountry <https://sws.geonames.org/6252001/>;
+    gn:parentADM1 <https://sws.geonames.org/5769223/>;
+.
+
+# ADM 1
+
+<https://sws.geonames.org/5769223/> a gn:Feature;
+    geo:lat "44.50026";
+    geo:long "-100.25069";
+    skos:altLabel "South Dakota"@en, "SD"@en, "State of South Dakota"@en, "The Mount Rushmore State"@en,
+    "S.D."@en, "S. Dak."@en, "South Dakota, United States"@en, "SoDak"@en, "S. Dakota"@en,
+    "The Coyote State"@en, "US-SD"@en;
+    gn:featureCode <http://www.geonames.org/ontology#A.ADM1>;
+    gn:countryCode "US";
+    gn:name "South Dakota";
+    gn:featureClass <http://www.geonames.org/ontology#A>;
+    gn:officialName "South Dakota", "South Dakota"@en;
+    gn:parentCountry <https://sws.geonames.org/6252001/>;
+.
+
+<https://sws.geonames.org/4736286/> a gn:Feature;
+        geo:lat "31.25044";
+        geo:long "-99.25061";
+        skos:altLabel "Texas"@en, "TX"@en, "The Lone Star State"@en, "Tex."@en, "US-TX"@en;
+        gn:featureCode <http://www.geonames.org/ontology#A.ADM1>;
+        gn:countryCode "US";
+        gn:name "Texas";
+        gn:featureClass <http://www.geonames.org/ontology#A>;
+        gn:officialName "Texas"@en, "Texas", "Texas"@es;
+        gn:population "22875689";
+        gn:parentCountry <https://sws.geonames.org/6252001/>;
+        geo:alt "559" .
+
+
+<https://sws.geonames.org/6252001/> a gn:Feature;
+        geo:lat "39.76";
+        geo:long "-98.5";
+        skos:altLabel "United States of America"@en, "America"@en, "the United States of America"@en,
+        "USA"@en, "US"@en;
+        gn:featureCode <http://www.geonames.org/ontology#A.PCLI>;
+        gn:countryCode "US";
+        gn:name "United States";
+        gn:featureClass <http://www.geonames.org/ontology#A>;
+        gn:officialName "United States of America"@en, "Съединени щати"@bg .
+
+
+ex:817b2d7843d9f4262263a96bb01e1ff881a144ef a s:Place;
+        s:additionalType <http://www.wikidata.org/entity/Q18761864>;
+        s:name "Bank of Houston (National Association)";
+        s:containedInPlace <https://sws.geonames.org/4699066/>;
+        ex:charter "4865" .
+
+ex:df2f6e6f8b59aa3b9c6b165f5a6976151d927c0e a s:Place;
+        s:additionalType wd:Q18761864;
+        s:name "First National Bank";
+        s:containedInPlace <https://sws.geonames.org/5531553/> .
+
+
+ex:91b3fc919345b2846c2ae681daae0a2f0c08f8ff a s:Place;
+        s:additionalType wd:Q18761864;
+        s:name "First National Bank";
+        s:containedInPlace <https://sws.geonames.org/5230207/> .
+
+ex:8db34dd590ae38e2aef344f982916f6090119c2c a s:Place;
+                                            s:additionalType wd:Q18761864;
+                                            s:name "American First National Bank";
+                                            s:containedInPlace <https://sws.geonames.org/4699066/> .
+
+wd:Q18761864 a skos:Concept;
+             s:name "bank building"@en;
+             s:description "building that houses \n an establishment for the custody of money \n received from, or on behalf of, customers"@en .
+
+
+# PUML
+
+ex:91b3fc919345b2846c2ae681daae0a2f0c08f8ff puml:up wd:Q18761864 .
+ex:df2f6e6f8b59aa3b9c6b165f5a6976151d927c0e puml:up wd:Q18761864 .
+ex:817b2d7843d9f4262263a96bb01e1ff881a144ef puml:up wd:Q18761864 .
+ex:8db34dd590ae38e2aef344f982916f6090119c2c puml:up wd:Q18761864 .

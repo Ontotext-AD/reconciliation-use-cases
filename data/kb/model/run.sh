@@ -1,0 +1,1 @@
+docker run -v .:/files --rm docker-registry.ontotext.com/rdf2rml:latest
