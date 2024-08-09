@@ -2,9 +2,7 @@
 
 ## Overview
 
-This use case covers a typical reconciliation scenario.
-The aim is to augment an existing (target) RDF Knowledge Graph with additional data coming  
-from a non-semantic (tabular) source.
+This use case covers a typical reconciliation scenario. The aim is to augment an existing (target) RDF Knowledge Graph with additional data coming from a non-semantic (tabular) source.
 
 The tabular source contains information about entities already present in the KG 
 as well as about and new entities.   
