@@ -43,12 +43,11 @@ Each line contains information about one bank in the US.
 * Locations are a place and US state, where the state is identified by a two letter code.
 
 ```tsv
+18609   First National Bank     Spearman        TX      26219   266066
+21793   First National Bank     Oldham          SD      25894   944355
 10004   First National Bank     Paragould       AR      3887    42448
 3105    First National Bank     Waverly         IA      4519    376442
 10465   First National Bank     Cloverdale      IN      4324    60648
-14328   First National Bank     Arcadia         LA      15059   109659
-446     First National Bank     Damariscotta    ME      4256    439404
-6813    First National Bank     Bagley          MN      5087    392255
 ```
 
 ## Reconciliation workflow  
