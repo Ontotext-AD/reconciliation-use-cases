@@ -3,7 +3,8 @@
 Here is the data and queries used to build the knowledge base.
 
 * The full dataset is on Google Drive in [geonames-recon-kb.zip](https://drive.google.com/drive/folders/1UIEBh34MudmsObYSSR2qWPFUWgpHRe3d?usp=sharing) 
-* Download and unzip in this folder but do not commit in the repository!
+* Load data from the zip file in GraphDB
+* To work on the KB, download and unzip in this folder but *do not commit in the repository!*
 * If rebuilding the KB upload only the zip to the Google Drive without the individual `.ttl` files
 * The files used for the model are in the [model](model) folder.
 
