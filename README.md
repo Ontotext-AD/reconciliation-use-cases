@@ -23,8 +23,7 @@ The Knowledge Graph contains the following entities
 * The administrative territorial hierarchy of the world. All the countries and their administrative divisions from geonames (451379 entities)
 * Populated places for Europe and North America. (888968 entities) 
 * Alternative labels in english for the locations (harvested from wikidata)
-* Buildings from wikidata with their location (244779 entities)
-* Part of the banks entities in the tabular data with their locations (609 entities)
+* Buildings with their name and location (245388 entities). Close to 600 of these buildings are banks and have corresponding matches in the tabular data.  
 
 This diagram shows how places are attached to their corresponding feature from Geonames 
 as well as the relevant part of the administrative hierarchy needed to solve the reconciliation case.
@@ -34,12 +33,25 @@ as well as the relevant part of the administrative hierarchy needed to solve the
 More information on the KG with links to the data 
 and the building procedure are available in the [kb](data/kb) folder
 
-
-
-## Tabular data and reconciliaiton workflow
+## Tabular data 
 
 The tabular data is in [national-bank.tsv](data/tabular/national-bank.tsv)
-Each line contains information about one bank in the US.
+Each line contains information about one bank in the US. 
+* Most but not all of them have matches in the Knowledge Graph
+* The names are highly ambiguous (18 entities are called "First National Bank")
+* They are unambiguous w.r.t their location. I.e. each Bank is in a different city and state.
+* Locations are a place and US state, where the state is identified by a two letter code.
+
+```tsv
+10004   First National Bank     Paragould       AR      3887    42448
+3105    First National Bank     Waverly         IA      4519    376442
+10465   First National Bank     Cloverdale      IN      4324    60648
+14328   First National Bank     Arcadia         LA      15059   109659
+446     First National Bank     Damariscotta    ME      4256    439404
+6813    First National Bank     Bagley          MN      5087    392255
+```
+
+## Reconciliation workflow  
 
 The reconciliation process has roughly three stages
 
@@ -61,7 +73,5 @@ Some entities from the tabular data are not present in the KG.
 They should be created 
 
 ## Ontotext Reconciliation configuration
-
-## Workflow
 
 
