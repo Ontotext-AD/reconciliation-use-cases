@@ -15,7 +15,8 @@ It depends on
 * having the full geonames RDF dump loaded (available here [TODO])
 * having access to Wikidata Truthy RDF endpoint (currently at <https://reconcile.ontotext.com/graphdb/>)
 
-From full geonames RDF dump, select only relevant feature codes
+From full geonames RDF dump (available on Google Drive [here](https://drive.google.com/file/d/1EGteG-kQYzcKVIBd-82BrTANQDzMtZxm/view?usp=drive_link), 
+select only relevant feature codes, 
 
 ### Geonames Administrative entities
 
@@ -179,5 +180,19 @@ where {
 } 
 ```
 
-
-
+This query constructs  [geonames-alt-labels.ttl](geonames-alt-labels.ttl)
+using inter repository federation, provided the result from the previous query ([wd-more-labels.ttl](https://drive.google.com/file/d/1CfFa11Na5fo0rVZKB2hWh7JuSKVELj5q/view?usp=drive_link)
+is loaded in a repo called `wdlabels`
+```sparql
+PREFIX s: <http://schema.org/>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX gn: <http://www.geonames.org/ontology#>
+construct {
+    ?s skos:altLabel ?altlabel ;
+} where {
+    ?s a gn:Feature .
+    service <repository:wdlabels> {
+        ?s skos:altLabel ?altlabel 
+    }
+}
+```

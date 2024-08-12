@@ -38,7 +38,7 @@ Each line contains information about one bank in the US.
 * Most but not all of them have matches in the Knowledge Graph
 * The names are highly ambiguous (18 entities are called "First National Bank")
 * They are unambiguous w.r.t their location. I.e. each Bank is in a different city and state.
-* Locations are a place and US state, where the state is identified by a two letter code.
+* Locations are a place and US state, where the state is identified by a two-letter code.
 
 ```tsv
 18609   First National Bank     Spearman        TX      26219   266066
