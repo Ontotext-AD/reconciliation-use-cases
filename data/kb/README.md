@@ -196,3 +196,32 @@ construct {
     }
 }
 ```
+
+### Banks 
+
+In order to support the reconciliation use case, we have converted part of the source data to RDF and added it to the Knowledge Graph.
+
+This is th OR mapping query used for the conversion
+
+```sparql
+BASE <http://example.com/base/>
+PREFIX s: <http://schema.org/>
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX ex: <https://example.org/>
+CONSTRUCT {
+	?ID a s:Place ;
+    	s:name ?NAME ;
+    	s:containedInPlace ?gn_uri ;
+    	s:additionalType wd:Q18761864 ;
+    	ex:charter ?c_charter_in_data ;
+    .
+} 
+WHERE {
+  BIND( ?c_charter_in_data AS ?charter_in_data ) .
+  BIND( uri(concat("https://example.org/",?c_ID)) AS ?ID ) .
+  BIND( ?c_NAME AS ?NAME ) 
+  bind(uri(concat("https://sws.geonames.org/",str(?c_gn_id),"/")) as ?gn_uri)
+ }
+```
+The source table is and the full Onotoext Refine project, 
+used to build it are on Google Drive [here](https://drive.google.com/drive/folders/1tkNWqLERgR_pXATqlH9lghrknYxsOsok?usp=drive_link)
