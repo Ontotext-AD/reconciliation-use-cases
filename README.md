@@ -66,6 +66,7 @@ Given that labels aren't unique, we must rely on some element of their context i
 Here this is the geographic location. 
 
 ### Create and add new entities 
+
 Some entities from the tabular data are not present in the KG. 
 They should be created 
 
