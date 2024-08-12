@@ -12,11 +12,11 @@ Here is the data and queries used to build the knowledge base.
 
 This is the building procedure for the Knowledge Base
 It depends on
-* having the full geonames RDF dump loaded (available here [TODO])
+* having the full geonames RDF dump loaded (Available on Google Drive [here](https://drive.google.com/file/d/1EGteG-kQYzcKVIBd-82BrTANQDzMtZxm/view?usp=drive_link)
 * having access to Wikidata Truthy RDF endpoint (currently at <https://reconcile.ontotext.com/graphdb/>)
 
-From full geonames RDF dump (available on Google Drive [here](https://drive.google.com/file/d/1EGteG-kQYzcKVIBd-82BrTANQDzMtZxm/view?usp=drive_link), 
-select only relevant feature codes, 
+From full geonames RDF dump 
+select only relevant feature classes `A` and `P` for a selection of countries. 
 
 ### Geonames Administrative entities
 
