@@ -64,11 +64,62 @@ For the rest of the entities we can not rely on shared identifiers,
 but only on string matching between the labels.
 Given that labels aren't unique, we must rely on some element of their context in order to disambiguate.
 Here this is the geographic location. 
+First need to match the `STATE` column to entities corresponding to US states, using the `skos:altLabels`.
+
+This query selects all the US states and their alt labels
+```sparql
+PREFIX gn: <http://www.geonames.org/ontology#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX gn: <http://www.geonames.org/ontology#>
+select * where {
+    ?s a gn:Feature ;
+    gn:name ?name ;
+    skos:altLabel ?altLabel ;
+    gn:featureCode <https://www.geonames.org/ontology#A.ADM1> ;
+    gn:countryCode "US" .
+}
+```
+
+Then we need to match the `CITY` column to `gn:Features` of gn:featureClass "P" (populated place), 
+which are located in the corresponding state.
+
+This query matches all the cities in Texas
+
+```sparql
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX gn: <http://www.geonames.org/ontology#>
+select * where {
+    ?s a gn:Feature ;
+    gn:name ?name ;
+    skos:altLabel ?altLabel ;
+    gn:featureClass <https://www.geonames.org/ontology#P> ;
+    gn:parentADM1 <https://sws.geonames.org/4736286/> ; #Texas
+    . 
+}
+```
+
+Finally the `NAME` column should be matched against entities of type `s:Place` ;
+located (`s:conatinedinPlace`) in the corresponding City.
+
+This query selects all places in Houston. 
+```sparql
+PREFIX s: <http://schema.org/>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX gn: <http://www.geonames.org/ontology#>
+select * where {
+    ?s a s:Place ;
+    s:name ?name ;
+    s:containedInPlace <https://sws.geonames.org/4699066/> .
+}
+```
+
 
 ### Create and add new entities 
 
 Some entities from the tabular data are not present in the KG. 
-They should be created 
+They should be created using Ontotext Refine 
+This is out of scope of the current verison of Recon, 
+but it is good to have it in mind 
 
 ## Ontotext Reconciliation configuration
 
