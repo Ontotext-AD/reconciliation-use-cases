@@ -1,4 +1,4 @@
-# US Banks reconciliaiton use case
+# US Banks reconciliation use case
 
 ## Overview
 
