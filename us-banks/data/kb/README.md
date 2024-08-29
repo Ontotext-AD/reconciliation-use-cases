@@ -1,27 +1,21 @@
 # Knowledge Base 
 
-Here is the data and queries used to build the knowledge base.
-
-* The full dataset is on Google Drive in [geonames-recon-kb.zip](https://drive.google.com/drive/folders/1UIEBh34MudmsObYSSR2qWPFUWgpHRe3d?usp=sharing) 
-* Load data from the zip file in GraphDB
-* To work on the KB, download and unzip in this folder but *do not commit in the repository!*
-* If rebuilding the KB upload only the zip to the Google Drive without the individual `.ttl` files
-* The files used for the model are in the [model](model) folder.
+Here is the data and queries used to build the knowledge base in the form of `.ttl` files 
+The files used for the model diagrams are in the [model](model) folder.
 
 ## Building procedure
 
 This is the building procedure for the Knowledge Base
 It depends on
-* having the full geonames RDF dump loaded (Available on Google Drive [here](https://drive.google.com/file/d/1EGteG-kQYzcKVIBd-82BrTANQDzMtZxm/view?usp=drive_link)
-* having access to Wikidata Truthy RDF endpoint (currently at <https://reconcile.ontotext.com/graphdb/>)
+* having the full geonames RDF dump loaded in a repository named `geonames`. The full data is available on Google Drive [here](https://drive.google.com/file/d/1EGteG-kQYzcKVIBd-82BrTANQDzMtZxm/view?usp=drive_link)
+* having read access to Wikidata Truthy RDF endpoint (currently at <https://reconcile.ontotext.com/graphdb/>)
 
-From full geonames RDF dump 
-select only relevant feature classes `A` and `P` for a selection of countries. 
 
 ### Geonames Administrative entities
+From full geonames RDF dump  select only relevant feature classes `A` and `P` for a selection of countries.
 
 * constructs the entire administrative hierarchy for the world.
-* run on geonames repo
+* run on `geonames` repository
 * file: [geonames-a.ttl](geonames-a.ttl)
 
 ```sparql
@@ -44,11 +38,10 @@ where {
 }
 ```
 
-
 ### Geonames Populated places
 
 * query extracts all the populated places in europe and North America
-* run on geonames repo
+* run on `geonames` repository
 * file: [geonames-p.ttl](geonames-p.ttl)
 
 ```sparql
@@ -120,15 +113,14 @@ where {
 } 
 ```
 
-### Altrenative Lables 
+### Alternative Labels 
 
-* query constructs alternative labels from wikidata for all objets with a Geonames id
-* resulting RDF is with geonemaes URI and ready to integrate
-* run on WDtruthy endpoint.
-* slow and very large output - available on gdrive [here](https://drive.google.com/file/d/1kMYWoc5ZpXFx-uVc3j-__iGRXCZ054Nl/view?usp=sharing)
-* to be loaded in separate repository and integrated through inter repository federation (see below)
+* query constructs alternative labels from wikidata for all objets with a Geonames id with geonames URI and ready to integrate
+* run on `WDtruthy` endpoint.
+* slow and very large output - available on gdrive [here](https://drive.google.com/file/d/1CfFa11Na5fo0rVZKB2hWh7JuSKVELj5q/view?usp=sharing)
+* to be loaded in separate repository (called here `wdlabels`) and integrated through inter repository federation (see below)
 
-This is an example of the result
+This is a `.ttl` example of the result
 
 ```turtle
 <https://sws.geonames.org/6252001/> skos:altLabel "United States of America"@en, "United States"@en, "America"@en, "the United States of America"@en,
@@ -203,6 +195,7 @@ In order to support the reconciliation use case, we have converted part of the s
 
 This is th OR mapping query used for the conversion
 
+
 ```sparql
 BASE <http://example.com/base/>
 PREFIX s: <http://schema.org/>
@@ -223,5 +216,3 @@ WHERE {
   bind(uri(concat("https://sws.geonames.org/",str(?c_gn_id),"/")) as ?gn_uri)
  }
 ```
-The source table is and the full Onotoext Refine project, 
-used to build it are on Google Drive [here](https://drive.google.com/drive/folders/1tkNWqLERgR_pXATqlH9lghrknYxsOsok?usp=drive_link)
