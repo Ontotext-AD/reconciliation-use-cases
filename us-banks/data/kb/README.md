@@ -1,6 +1,9 @@
 # Knowledge Base 
 
-Here is the data and queries used to build the knowledge base in the form of `.ttl` files 
+Here is the data and queries used to build the knowledge base 
+The data is in `.ttl` files in the [ttl](ttl) folder. *Do not commit them in the repo. 
+Instead they are archived in [us-banks-recon-kb.ttl.zip](us-banks-recon-kb.ttl.zip), which is tracked using [git-lfs](https://docs.github.com/en/repositories/working-with-files/managing-large-files/configuring-git-large-file-storage),
+the data is also available on Google Drive [here](https://drive.google.com/file/d/131jyMjCHmqhIjIMZ8hFhlkMaLUhG4B_T/view?usp=sharing)
 The files used for the model diagrams are in the [model](model) folder.
 
 ## Building procedure
