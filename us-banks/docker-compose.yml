@@ -1,0 +1,72 @@
+version: '3.7'
+
+services:
+
+  ########################
+  #    Reconciliation    #
+  ########################
+
+  reconciliator:
+    image: docker-registry.ontotext.com/ontotext/reconciliation/reconciliator:1.0.0-SNAPSHOT
+    ports:
+      - 8085:8080
+    volumes:
+      - "${ELASTIC_CONFIG?'Missing elasticsearch configuration path'}:/opt/elastic.json"
+      - "${APPLICATION_CONFIG?'Missing application configuration path'}:/opt/application.yml"
+      - "${PREVIEW_TEMPLATES?'Missing preview templates path'}:/opt/resources"
+    environment:
+      JAVA_OPTS: >-
+        -Delastic.config.file=/opt/elastic.json
+    depends_on:
+      - elastic
+
+  #################
+  #    GraphDB    #
+  #################
+
+  graphdb:
+    image: ontotext/graphdb:10.7.3
+    restart: "always"
+    stop_grace_period: 5m
+    environment:
+      GDB_JAVA_OPTS: >-
+        -Xmx8g -Xms4g
+        -Dhealth.max.query.time.seconds=600
+        -Dgraphdb.external-url=${GDB_HOST}
+        -Dgraphdb.append.request.id.headers=true
+        -Dgraphdb.workbench.importDirectory=/opt/graphdb/home/graphdb-import
+        -Dgraphdb.workbench.cors.enable=false
+        -Dgraphdb.engine.entity.validate=false
+    volumes:
+      - "${GDB_DATA_PATH?'Missing GDB data path'}:/opt/graphdb/home/data"
+      - "${GDB_LICENSE_PATH?'Missing GraphDB license path'}:/opt/graphdb/home/conf/graphdb.license:ro"
+      - "index_data:/opt/index_data/"
+    #  - "${GDB_CONFIG_PATH?'Missing GDB config path'}:/opt/graphdb/home/work"
+      - "./config/gdb/places-config.ttl:/opt/graphdb/home/data/repositories/places/config.ttl"
+    ports:
+      - 7400:7200
+
+  #######################
+  #    Elasticsearch    #
+  #######################
+
+  elastic:
+    image: elasticsearch:7.17.18
+    restart: always
+    ports:
+      - 9200:9200
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - "${ES_DATA_PATH?'Missing elasticsearch data path'}:/tmp/elasticsearch/data"
+    environment:
+      - "discovery.type=single-node"
+      - "MAX_CLAUSE_COUNT=4096"
+      - "ES_JAVA_OPTS=-Xms1024m -Xmx3096m"
+      - "xpack.security.enabled=false"
+      - "node.name=elastic"
+
+volumes:
+  index_data:

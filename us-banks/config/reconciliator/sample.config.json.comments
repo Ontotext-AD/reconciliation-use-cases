@@ -1,0 +1,68 @@
+{
+  // Name of index
+  "geonames": {
+    // Name of Elasticsearch index
+    "indexName": "geonames",
+    // Type within the index, the connectors hardcode this as "semantic-index"
+    "indexType": "semantic-index",
+    // URL of the Elasticsearch server, note the port is 9200 and not 9300 as in the connectors
+    "elasticUrl": "http://localhost:9200",
+    // Field to use when searching for the value in the reconciled column.
+    // Additionally the fields defined in it are used for the entity suggestion queries along with the 'id' field.
+    "queryField": ["name"],
+    // Boost for search field, optional, 1.0 is the default
+    "searchFieldBoost": 1.0,
+    // boost for the match phrase query for the search field
+    "searchFieldPhraseBoost": 1,
+    // slop for the match phrase query for the search field
+    "searchFieldPhraseSlop": 3,
+    // Field to fetch the name (label) for reconciled IRIs, optional (no filed means name = IRI)
+    "nameField": "name",
+    // Field to strict-match against the chosen type for reconciliation
+    "typeField": "feature_class",
+    // boost for the type field query
+    "typeFieldBoost": 2.0
+    // IRIs of types this service can reconcile
+    "types": [
+      "http://www.geonames.org/ontology#P",
+      "http://www.geonames.org/ontology#A"
+    ],
+    // The default type to show to user
+    "defaultType": "http://www.geonames.org/ontology#P",
+    // Custom boosts for properties. Properties are values from additional columns that can be send at recon time.
+    // The default boost for each property is 1.0. See "company" service below for example.
+    "propertiesBoost": {},
+    // Mark properties/fields as containing reconciled items (i.e. IRIs)
+    // This is used for adding new columns based on reconciled items.
+    // Properties that aren't listed here will be treated as literals (strings, numbers, dates)
+    "propertiesType": {
+      // Property/field name
+      "feature_code": {
+        // IRI
+        "id": "http://www.geonames.org/ontology#Feature",
+        // Label
+        "name": "Geonames Feature"
+      }
+    },
+    // Elasticsearch query template to be used for to for fine-tuning the queries
+    "template": "{\"query\":{\"bool\":{\"should\":[{\"match\":{\"type\":\"{{type}}\"}},{\"match\":{\"prefLabel\":\"{{prefLabel}}\"}}]}},\"aggs\":{\"types_count\":{\"terms\":{\"field\":\"{{type}}\"}}}}",
+    // If set to true the Elasticsearch queries will be batched. True by default.
+    "batchMode": true
+  },
+  "company": {
+    "indexName": "company",
+    "indexType": "semantic-index",
+    "elasticUrl": "http://localhost:9200",
+    "queryField": ["name"],
+    "nameField": "name",
+    "typeField": "type",
+    "types": [
+      "http://example.com/company/Company"
+    ],
+    "defaultType": "http://example.com/company/Company",
+    "propertiesBoost": {
+      "head_quarter": 0.8,
+      "industry": 0.6
+    }
+  }
+}

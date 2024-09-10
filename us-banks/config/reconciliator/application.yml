@@ -1,0 +1,19 @@
+server:
+  headers:
+    Access-Control-Allow-Origin: "*"
+    Access-Control-Allow-Headers: "*"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: prometheus
+  health:
+    solr:
+      enabled: false
+    elasticsearch:
+      enabled: false
+
+logging:
+  pattern:
+    level: "%5p %X{X-Request-ID}"

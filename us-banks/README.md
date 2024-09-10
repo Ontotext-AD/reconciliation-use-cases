@@ -122,6 +122,8 @@ select * where {
 
 This is how the recon service is configured
 
+README for now in [gitlab](https://gitlab.ontotext.com/graphdb-team/reconciliation/reconciliation-framework/-/tree/master/conciliator#mustache-templates)
+
 ### WIP: Matching workflow using Ontotext Refine
 
 This is how the reconciliation process is executed
