@@ -1,0 +1,187 @@
+PREFIX :<http://www.ontotext.com/connectors/elasticsearch#>
+PREFIX inst:<http://www.ontotext.com/connectors/elasticsearch/instance#>
+INSERT DATA {
+inst:people :createConnector '''
+{
+  "fields": [
+    {
+        "propertyChain": ["$self"],
+        "fieldName": "id",
+        "multivalued": false,
+        "ignoreInvalidValues": true
+    },
+    {
+      "fieldName": "place",
+      "propertyChain": [
+        "http://www.w3.org/2004/02/skos/core#prefLabel"
+      ],
+      "indexed": true,
+      "stored": true,
+      "analyzed": true,
+      "multivalued": true,
+      "ignoreInvalidValues": false,
+      "fielddata": false,
+      "array": false,
+      "objectFields": []
+    },
+    {
+      "fieldName": "place_parent",
+      "propertyChain": [
+        "http://www.w3.org/2004/02/skos/core#prefLabel"
+      ],
+      "indexed": true,
+      "stored": true,
+      "analyzed": true,
+      "multivalued": true,
+      "ignoreInvalidValues": false,
+      "fielddata": false,
+      "array": false,
+      "analyzer": "keyword",
+      "objectFields": []
+    },
+    {
+      "fieldName": "type",
+      "propertyChain": [
+        "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
+      ],
+      "indexed": true,
+      "stored": true,
+      "analyzed": true,
+      "multivalued": true,
+      "ignoreInvalidValues": false,
+      "fielddata": false,
+      "array": false,
+      "objectFields": []
+    },
+    {
+      "fieldName": "gender",
+      "propertyChain": [
+        "http://www.wikidata.org/prop/direct/P21",
+        "http://www.w3.org/2004/02/skos/core#prefLabel"
+      ],
+      "indexed": true,
+      "stored": true,
+      "analyzed": true,
+      "multivalued": true,
+      "ignoreInvalidValues": false,
+      "fielddata": false,
+      "array": false,
+      "objectFields": []
+    },
+    {
+      "fieldName": "occupation",
+      "propertyChain": [
+        "http://www.wikidata.org/prop/direct/P106",
+        "http://www.w3.org/2004/02/skos/core#prefLabel"
+      ],
+      "indexed": true,
+      "stored": true,
+      "analyzed": false,
+      "multivalued": true,
+      "ignoreInvalidValues": false,
+      "fielddata": false,
+      "array": false,
+      "objectFields": []
+    },
+    {
+      "fieldName": "altLabel",
+      "propertyChain": [
+        "http://www.w3.org/2004/02/skos/core#altLabel"
+      ],
+      "indexed": true,
+      "stored": true,
+      "analyzed": true,
+      "multivalued": true,
+      "ignoreInvalidValues": false,
+      "fielddata": false,
+      "array": false,
+      "objectFields": []
+    },
+    {
+      "fieldName": "employer",
+      "propertyChain": [
+        "http://www.wikidata.org/prop/direct/P108"
+      ],
+      "indexed": true,
+      "stored": true,
+      "analyzed": false,
+      "multivalued": true,
+      "ignoreInvalidValues": false,
+      "fielddata": false,
+      "array": false,
+      "objectFields": []
+    },
+    {
+      "fieldName": "country_citizenship",
+      "propertyChain": [
+        "http://www.wikidata.org/prop/direct/P27"
+      ],
+      "indexed": true,
+      "stored": true,
+      "analyzed": false,
+      "multivalued": true,
+      "ignoreInvalidValues": false,
+      "fielddata": false,
+      "array": false,
+      "objectFields": []
+    },
+    {
+      "fieldName": "birth_date",
+      "propertyChain": [
+        "http://www.wikidata.org/prop/direct/P569"
+      ],
+      "indexed": true,
+      "stored": true,
+      "analyzed": false,
+      "multivalued": true,
+      "ignoreInvalidValues": false,
+      "fielddata": false,
+      "array": false,
+      "objectFields": []
+    },
+    {
+      "fieldName": "birth_place",
+      "propertyChain": [
+        "http://www.wikidata.org/prop/direct/P19"
+      ],
+      "indexed": true,
+      "stored": true,
+      "analyzed": false,
+      "multivalued": true,
+      "ignoreInvalidValues": false,
+      "fielddata": false,
+      "array": false,
+      "objectFields": []
+    },
+    {
+      "fieldName": "rdfRank",
+      "propertyChain": [
+        "http://www.ontotext.com/owlim/RDFRank#hasRDFRank"
+      ],
+      "datatype": "xsd:float",
+      "indexed": true,
+      "stored": true,
+      "analyzed": true,
+      "multivalued": true,
+      "ignoreInvalidValues": false,
+      "fielddata": false,
+      "array": false,
+      "objectFields": []
+    }
+  ],
+  "languages": [],
+  "types": [
+    "http://www.wikidata.org/entity/Human"
+  ],
+  "readonly": true,
+  "detectFields": false,
+  "importGraph": false,
+  "elasticsearchNode": "http://elastic:9200",
+  "elasticsearchClusterSniff": true,
+  "manageIndex": true,
+  "manageMapping": true,
+  "bulkUpdateBatchSize": 5000,
+  "bulkUpdateRequestSize": 5242880
+}
+''' .
+}

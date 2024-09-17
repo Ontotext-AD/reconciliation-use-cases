@@ -1,0 +1,167 @@
+PREFIX :<http://www.ontotext.com/connectors/elasticsearch#>
+PREFIX inst:<http://www.ontotext.com/connectors/elasticsearch/instance#>
+INSERT DATA {
+inst:people :createConnector '''
+    {
+        "fields": [
+            {
+                "propertyChain": [
+                    "$self"
+                ],
+                "fieldName": "id",
+                "multivalued": false,
+                "ignoreInvalidValues": true
+            },
+            {
+                "fieldName": "placeLabel",
+                "propertyChain": [
+                    "http://www.geonames.org/ontology#name"
+                ],
+                "indexed": true,
+                "stored": true,
+                "analyzed": true,
+                "multivalued": true,
+                "ignoreInvalidValues": false,
+                "fielddata": false,
+                "array": false,
+                "objectFields": []
+            },
+            {
+                "fieldName": "placeAltLabel",
+                "propertyChain": [
+                    "http://www.w3.org/2004/02/skos/core#altLabel"
+                ],
+                "indexed": true,
+                "stored": true,
+                "analyzed": true,
+                "multivalued": true,
+                "ignoreInvalidValues": false,
+                "fielddata": false,
+                "array": false,
+                "analyzer": "keyword",
+                "objectFields": []
+            },
+            {
+                "fieldName": "parentADM1",
+                "propertyChain": [
+                    "http://www.geonames.org/ontology#parentADM1",
+                    "http://www.geonames.org/ontology#name"
+                ],
+                "indexed": true,
+                "stored": true,
+                "analyzed": true,
+                "multivalued": true,
+                "ignoreInvalidValues": false,
+                "fielddata": false,
+                "array": false,
+                "objectFields": []
+            },
+            {
+                "fieldName": "parentADM1Alt",
+                "propertyChain": [
+                    "http://www.geonames.org/ontology#parentADM1",
+                    "http://www.w3.org/2004/02/skos/core#altLabel"
+                ],
+                "indexed": true,
+                "stored": true,
+                "analyzed": true,
+                "multivalued": true,
+                "ignoreInvalidValues": false,
+                "fielddata": false,
+                "array": false,
+                "objectFields": []
+            },
+            {
+                "fieldName": "parentADM2",
+                "propertyChain": [
+                    "http://www.geonames.org/ontology#parentADM2",
+                    "http://www.geonames.org/ontology#name"
+                ],
+                "indexed": true,
+                "stored": true,
+                "analyzed": true,
+                "multivalued": true,
+                "ignoreInvalidValues": false,
+                "fielddata": false,
+                "array": false,
+                "objectFields": []
+            },
+            {
+                "fieldName": "parentADM2Alt",
+                "propertyChain": [
+                    "http://www.geonames.org/ontology#parentADM2",
+                    "http://www.w3.org/2004/02/skos/core#altLabel"
+                ],
+                "indexed": true,
+                "stored": true,
+                "analyzed": true,
+                "multivalued": true,
+                "ignoreInvalidValues": false,
+                "fielddata": false,
+                "array": false,
+                "objectFields": []
+            },
+            {
+                "fieldName": "parentCountry",
+                "propertyChain": [
+                    "http://www.geonames.org/ontology#parentCountry",
+                    "http://www.geonames.org/ontology#name"
+                ],
+                "indexed": true,
+                "stored": true,
+                "analyzed": true,
+                "multivalued": true,
+                "ignoreInvalidValues": false,
+                "fielddata": false,
+                "array": false,
+                "objectFields": []
+            },
+            {
+                "fieldName": "parentCountryAlt",
+                "propertyChain": [
+                    "http://www.geonames.org/ontology#parentCountry",
+                    "http://www.w3.org/2004/02/skos/core#altLabel"
+                ],
+                "indexed": true,
+                "stored": true,
+                "analyzed": true,
+                "multivalued": true,
+                "ignoreInvalidValues": false,
+                "fielddata": false,
+                "array": false,
+                "objectFields": []
+            }
+        ],
+        "languages": [
+            "en"
+        ],
+        "types": [
+            "http://www.geonames.org/ontology#Feature"
+        ],
+        "readonly": true,
+        "detectFields": false,
+        "importGraph": false,
+        "elasticsearchNode": "http://elastic:9200",
+        "elasticsearchClusterSniff": true,
+        "manageIndex": true,
+        "manageMapping": true,
+        "bulkUpdateBatchSize": 5000,
+        "bulkUpdateRequestSize": 5242880
+    }
+  ],
+  "languages": [],
+  "types": [
+    "http://www.geonames.org/ontology#Feature"
+  ],
+  "readonly": true,
+  "detectFields": false,
+  "importGraph": false,
+  "elasticsearchNode": "http://elastic:9200",
+  "elasticsearchClusterSniff": true,
+  "manageIndex": true,
+  "manageMapping": true,
+  "bulkUpdateBatchSize": 5000,
+  "bulkUpdateRequestSize": 5242880
+}
+''' .
+}

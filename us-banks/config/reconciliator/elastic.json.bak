@@ -1,0 +1,82 @@
+{
+  "places": {
+    "indexName": "places",
+    "indexType": "semantic-index",
+    "elasticUrl": "http://elastic:9200",
+    "queryField": ["prefLabel", "altLabel"],
+    "nameField": "prefLabel",
+    "typeField": "type",
+    "typeFieldBoost": 2,
+    "searchFieldPhraseBoost": 1,
+    "searchFieldPhraseSlop": 2,
+    "searchFieldBoost": 1.2,
+    "types": [
+      "http://www.geonames.org/ontology#Feature"
+    ],
+    "defaultType": "http://www.wikidata.org/entity/Organization",
+    "propertiesBoost": {
+      "country": 0.5
+    },
+    "preview": {
+      "mode": "EXTERNAL",
+      "urlTemplate": "https://wikidata.reconci.link/en/preview?id={{id}}",
+      "idRegex": ".*/([^/]*)$"
+    }
+  },
+  "people": {
+    "indexName": "people",
+    "indexType": "semantic-index",
+    "elasticUrl": "http://elastic:9200",
+    "queryField": ["name", "altLabel"],
+    "searchFieldBoost": 1.2,
+    "searchFieldPhraseBoost": 1,
+    "searchFieldPhraseSlop": 2,
+    "nameField": "name",
+    "typeField": "type",
+    "types": [
+      "http://www.wikidata.org/entity/Human"
+    ],
+    "defaultType": "http://www.wikidata.org/entity/Human",
+    "propertiesBoost": {
+      "occupation": 1,
+      "country_citizenship": 1,
+      "employer": 0.4,
+      "gender": 0.2,
+      "name": 0.6,
+      "birth_place": 1,
+      "birth_date": 1
+    },
+    "preview": {
+      "mode": "EXTERNAL",
+      "urlTemplate": "https://wikidata.reconci.link/en/preview?id={{id}}",
+      "idRegex": ".*/([^/]*)$"
+    }
+  },
+  "locations": {
+    "indexName": "locations",
+    "indexType": "semantic-index",
+    "elasticUrl": "http://elastic:9200",
+    "queryField": ["prefLabel", "altLabel"],
+    "searchFieldBoost": 1.2,
+    "searchFieldPhraseBoost": 1,
+    "nameField": "prefLabel",
+    "typeField": "type",
+    "typeFieldBoost": 3,
+    "searchFieldPhraseSlop": 2,
+    "types": [
+      "http://www.wikidata.org/entity/Location"
+    ],
+    "defaultType": "http://www.wikidata.org/entity/Location",
+    "propertiesBoost": {
+      "county": 0.6,
+      "state": 0.4,
+      "country": 0.3,
+      "locatedin": 4
+    },
+    "preview": {
+      "mode": "EXTERNAL",
+      "urlTemplate": "https://wikidata.reconci.link/en/preview?id={{id}}",
+      "idRegex": ".*/([^/]*)$"
+    }
+  }
+}
