@@ -1,0 +1,106 @@
+PREFIX :<http://www.ontotext.com/connectors/elasticsearch#>
+PREFIX inst:<http://www.ontotext.com/connectors/elasticsearch/instance#>
+INSERT DATA {
+  inst:locations :dropConnector [] .
+};
+INSERT DATA {
+inst:locations :createConnector '''
+{
+    "fields": [
+        {
+            "propertyChain": [
+                "$self"
+            ],
+            "fieldName": "id",
+            "multivalued": false,
+            "ignoreInvalidValues": true
+        },
+        {
+            "fieldName": "type",
+            "propertyChain": [
+                "http://schema.org/additionalType"
+            ],
+            "indexed": true,
+            "stored": true,
+            "analyzed": true,
+            "multivalued": true,
+            "ignoreInvalidValues": false,
+            "fielddata": false,
+            "array": false,
+            "objectFields": []
+        },
+        {
+            "fieldName": "place",
+            "propertyChain": [
+                "http://schema.org/containedInPlace"
+            ],
+            "indexed": true,
+            "stored": true,
+            "analyzed": true,
+            "multivalued": true,
+            "ignoreInvalidValues": false,
+            "fielddata": false,
+            "array": false,
+            "objectFields": []
+        },
+        {
+            "fieldName": "placeLabel",
+            "propertyChain": [
+                "http://schema.org/containedInPlace",
+                "http://www.geonames.org/ontology#name"
+            ],
+            "indexed": true,
+            "stored": true,
+            "analyzed": true,
+            "multivalued": true,
+            "ignoreInvalidValues": false,
+            "fielddata": false,
+            "array": false,
+            "objectFields": []
+        },
+        {
+            "fieldName": "typeLabel",
+            "propertyChain": [
+                "http://schema.org/additionalType",
+                "http://schema.org/name"
+            ],
+            "indexed": true,
+            "stored": true,
+            "analyzed": true,
+            "multivalued": true,
+            "fielddata": false,
+            "array": false,
+            "objectFields": []
+        },
+        {
+            "fieldName": "locationName",
+            "propertyChain": [
+                "http://schema.org/name"
+            ],
+            "indexed": true,
+            "stored": true,
+            "analyzed": true,
+            "multivalued": true,
+            "ignoreInvalidValues": false,
+            "fielddata": false,
+            "array": false,
+            "analyzer": "keyword",
+            "objectFields": []
+        }
+    ],
+    "languages": [],
+    "types": [
+        "http://schema.org/Place"
+    ],
+    "readonly": true,
+    "detectFields": false,
+    "importGraph": false,
+    "elasticsearchNode": "http://elastic:9200",
+    "elasticsearchClusterSniff": true,
+    "manageIndex": true,
+    "manageMapping": true,
+    "bulkUpdateBatchSize": 5000,
+    "bulkUpdateRequestSize": 5242880
+}
+''' .
+}

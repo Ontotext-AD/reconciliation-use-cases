@@ -134,3 +134,7 @@ Some entities from the tabular data are not present in the KG.
 They should be created using Ontotext Refine
 This is out of scope of the current verison of Recon,
 but it is good to have it in mind 
+
+### Run
+
+`sudo docker-compose -f docker-compose.yml up -d`
