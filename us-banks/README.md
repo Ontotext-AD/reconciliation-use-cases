@@ -118,17 +118,56 @@ select * where {
 }
 ```
 
-## WIP:  Ontotext Reconciliation configuration
+## Ontotext Reconciliation configuration
 
-This is how the recon service is configured
+## Service configuration
 
-### WIP: Matching workflow using Ontotext Refine
+The reconciliation service configuration is in the [config](config) folder
 
-This is how the reconciliation process is executed
+## Service setup
+
+1. Obtain a valid Ontotext GraphDB SE licence and add it in this project at `config/gdb/graphdb.license` 
+2. Start the reconciliation service docker `docker-compose -f docker-compose.yml up -d`
+3. Access GraphDB at `localhost:7400` 
+4. Load all the RDF data from [data/kb/ttl](data/kb/ttl). 
+5. Create the elasticsearch connectors by executing the two sparql queries [locations.sparql](config/reconciliator/locations.sparql) and [place.sparql](config/reconciliator/place.sparql)
+
+### Matching workflow using Ontotext Refine
+
+Download and run latest [Ontotext Refine](https://www.ontotext.com/products/ontotext-refine/).
+
+Create a project using the tabular data from [data/tabular/national-bank.tsv]
+
+Register the reconciliation endpoints.
+* `http://localhost:8085/places` - for the Geonames entities 
+* `http://localhost:8085/locations` - for the Locations 
+
+First match the geographical entities using the `places` reconciliation endpoint: 
+
+Matching  the `CITY` column alone will be ambiguous,
+due to the high number of cities with the same name.
+For this reason add details from another column, "STATE", which should match with the content of the "ParentADM1Alt" field, 
+which contains the alternative labels of all the administrative entities of level 1. 
+
+![places-recon](img/places-OR-recon.png)
+
+Once the process is finished we can match the banks against the `locations` endpoint. 
+To do this match the 'NAME' column and add the details from the 'CITY' column as the 'place' field.
+Note that the type suggestion service correctly identifies "bank building" as the correct type.
+
+![location-recon](img/locations-OR-recon.png)
 
 ### WIP: Create and add new entities
 
 Some entities from the tabular data are not present in the KG.
 They should be created using Ontotext Refine
-This is out of scope of the current verison of Recon,
+This is out of scope of the current version of Recon,
 but it is good to have it in mind 
+
+### Run
+
+`sudo docker-compose -f docker-compose.yml up -d`
+
+### Templates config 
+
+README for now in [gitlab](https://gitlab.ontotext.com/graphdb-team/reconciliation/reconciliation-framework/-/tree/master/conciliator#mustache-templates)

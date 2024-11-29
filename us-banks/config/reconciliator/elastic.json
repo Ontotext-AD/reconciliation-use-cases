@@ -1,0 +1,72 @@
+{
+  "places": {
+    "indexName": "places",
+    "indexType": "semantic-index",
+    "elasticUrl": "http://elastic:9200",
+    "queryField": [
+      "placeAltLabel",
+      "placeLabel"
+    ],
+    "nameField": "placeLabel",
+    "typeField": "type",
+    "typeFieldBoost": 2,
+    "searchFieldPhraseBoost": 1,
+    "searchFieldPhraseSlop": 2,
+    "searchFieldBoost": 1.2,
+    "types": [
+      "http://www.geonames.org/ontology#Feature"
+    ],
+    "defaultType": "http://www.geonames.org/ontology#Feature",
+    "propertiesBoost": {
+      "parentADM1": 2,
+      "parentADM1Alt": 2,
+      "parentADM2": 2,
+      "parentADM2Alt": 2,
+      "parentCountry": 2,
+      "parentCountryAlt": 2
+    },
+    "preview": {
+      "mode": "ELASTIC",
+      "elasticUrl": "http://elastic:9200",
+      "indexName": "places",
+      "nameField": "placeLabel",
+      "fields": [
+          "placeLabel",
+          "parentADM1",
+          "parentCountry"
+      ]
+    }
+  },
+   "locations": {
+    "indexName": "locations",
+    "indexType": "semantic-index",
+    "elasticUrl": "http://elastic:9200",
+    "queryField": [
+      "locationName"
+    ],
+    "nameField": "locationName",
+    "typeField": "type",
+    "typeFieldBoost": 2,
+    "searchFieldPhraseBoost": 1,
+    "searchFieldPhraseSlop": 2,
+    "searchFieldBoost": 1.2,
+    "types": [
+      "http://www.geonames.org/ontology#Feature"
+    ],
+    "defaultType": "http://www.geonames.org/ontology#Feature",
+    "propertiesBoost": {
+      "place": 10
+    },
+    "preview": {
+      "mode": "ELASTIC",
+      "elasticUrl": "http://elastic:9200",
+      "indexName": "locations",
+      "nameField": "locationName",
+      "fields": [
+          "locationName",
+          "placeLabel",
+          "place"
+      ]
+    }
+  }
+}
