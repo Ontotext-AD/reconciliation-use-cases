@@ -29,5 +29,3 @@ where entities form teh `CITY` and `STATE` columns are assigned unique ids for t
   gn:countryCode "US";
   skos:altLabel "OH" .
 ```
-
-
