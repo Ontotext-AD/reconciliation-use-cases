@@ -1,0 +1,38 @@
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX gn: <http://www.geonames.org/ontology#>
+BASE <http://example.com/base/>
+PREFIX s: <http://schema.org/>
+PREFIX wd: <http://www.wikidata.org/entity/>
+prefix ex: <https://example.org/>
+
+CONSTRUCT {
+?NAME_TMP a s:Place ;
+s:name ?NAME ;
+gn:featureCode <http://www.geonames.org/ontology#P.PPL>;
+ex:charter ?CHARTER_NO ;
+s:additionalType wd:Q18761864 ;
+s:containedInPlace ?CITY_TMP ;
+.
+?CITY_TMP a gn:Feature ;
+gn:name ?CITY ;
+skos:altLabel ?CITY ;
+gn:parentADM1 ?STATE_TMP ;
+.
+?STATE_TMP a gn:Feature ;
+gn:featureCode <http://www.geonames.org/ontology#A.ADM1>;
+gn:countryCode "US";
+skos:altLabel ?STATE ;
+.
+}
+WHERE {
+    BIND( ?c_CHARTER_NO AS ?CHARTER_NO ) .
+    BIND( ?c_NAME AS ?NAME ) .
+    BIND( ?c_CITY AS ?CITY ) .
+    BIND( ?c_STATE AS ?STATE ) .
+    BIND( ?c_CERT AS ?CERT ) .
+    BIND( ?c_RSSD AS ?RSSD ) .
+
+    BIND (URI(UUID()) as ?NAME_TMP)
+    BIND (URI(STR(SHA256(CONCAT(?CITY,?STATE)))) as ?CITY_TMP)
+    BIND (URI(STR(SHA256(?STATE))) as ?STATE_TMP)
+}
