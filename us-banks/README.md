@@ -136,7 +136,7 @@ The reconciliation service configuration is in the [config](config) folder
 
 Download and run latest [Ontotext Refine](https://www.ontotext.com/products/ontotext-refine/).
 
-Create a project using the tabular data from [data/tabular/national-bank.tsv]
+Create a project using the tabular data from [national-bank.tsv](data/tabular/national-bank.tsv)
 
 Register the reconciliation endpoints.
 * `http://localhost:8085/places` - for the Geonames entities 
@@ -146,7 +146,8 @@ First match the geographical entities using the `places` reconciliation endpoint
 
 Matching  the `CITY` column alone will be ambiguous,
 due to the high number of cities with the same name.
-For this reason add details from another column, "STATE", which should match with the content of the "ParentADM1Alt" field, 
+For this reason add details from another column, `STATE`, 
+which should match with the content of the `ParentADM1Alt` field, 
 which contains the alternative labels of all the administrative entities of level 1. 
 
 ![places-recon](img/places-OR-recon.png)
