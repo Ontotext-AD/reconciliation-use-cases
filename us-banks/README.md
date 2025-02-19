@@ -23,7 +23,7 @@ This can be:
 The Knowledge Graph contains the following entities
 * The administrative territorial hierarchy of the world. All the countries and their administrative divisions from geonames (451379 entities)
 * Populated places for Europe and North America. (888968 entities) 
-* Alternative labels in english for the locations (harvested from wikidata)
+* Alternative labels in english for the landmarks (harvested from wikidata)
 * Landmarks with their name and location (245388 entities). Close to 600 of these landmarks are bank buildings and have corresponding matches in the tabular data.  
 
 This diagram shows how places are attached to their corresponding feature from Geonames 
@@ -131,7 +131,7 @@ The reconciliation service configuration is in the [config](config) folder
 2. Start the reconciliation service docker `docker-compose -f docker-compose.yml up -d`
 3. Access GraphDB at `localhost:7400` 
 4. Load all the RDF data from [data/kb/ttl](data/kb/ttl). 
-5. Create the elasticsearch connectors by executing the two sparql queries [locations.sparql](config/reconciliator/landmarks.sparql) and [place.sparql](config/reconciliator/places.sparql)
+5. Create the elasticsearch connectors by executing the two sparql queries [landmarks.sparql](config/reconciliator/landmarks.sparql) and [place.sparql](config/reconciliator/places.sparql)
 
 ### Matching workflow using Ontotext Refine
 
@@ -156,7 +156,7 @@ Once the process is finished we can match the banks against the `landmarks` endp
 To do this match the 'NAME' column and add the details from the 'CITY' column as the `place_id` field.
 Note that the type suggestion service correctly identifies "bank building" as the correct type.
 
-![location-recon](img/locations-OR-recon.png)
+![landmarks-recon](img/landmarks-OR-recon.png)
 
 ### WIP: Create and add new entities
 
