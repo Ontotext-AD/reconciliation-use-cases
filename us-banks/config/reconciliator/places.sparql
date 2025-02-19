@@ -11,7 +11,7 @@ inst:places :createConnector '''
             "propertyChain": [
                 "$self"
             ],
-            "fieldName": "id",
+            "fieldName": "place_id",
             "multivalued": false,
             "ignoreInvalidValues": true
         },
@@ -44,7 +44,7 @@ inst:places :createConnector '''
             "objectFields": []
         },
         {
-            "fieldName": "placeLabel",
+            "fieldName": "place_prefLabel",
             "propertyChain": [
                 "http://www.geonames.org/ontology#name"
             ],
@@ -59,7 +59,7 @@ inst:places :createConnector '''
             "objectFields": []
         },
         {
-            "fieldName": "placeAltLabel",
+            "fieldName": "place",
             "propertyChain": [
                 "http://www.w3.org/2004/02/skos/core#altLabel"
             ],
@@ -74,7 +74,7 @@ inst:places :createConnector '''
             "objectFields": []
         },
         {
-            "fieldName": "parentADM1",
+            "fieldName": "parent1_prefLabel",
             "propertyChain": [
                 "http://www.geonames.org/ontology#parentADM1",
                 "http://www.geonames.org/ontology#name"
@@ -90,7 +90,7 @@ inst:places :createConnector '''
             "objectFields": []
         },
         {
-            "fieldName": "parentADM1Alt",
+            "fieldName": "parent1",
             "propertyChain": [
                 "http://www.geonames.org/ontology#parentADM1",
                 "http://www.w3.org/2004/02/skos/core#altLabel"
@@ -105,7 +105,7 @@ inst:places :createConnector '''
             "objectFields": []
         },
         {
-            "fieldName": "parentADM2",
+            "fieldName": "parent2_prefLabel",
             "propertyChain": [
                 "http://www.geonames.org/ontology#parentADM2",
                 "http://www.geonames.org/ontology#name"
@@ -120,7 +120,7 @@ inst:places :createConnector '''
             "objectFields": []
         },
         {
-            "fieldName": "parentADM2Alt",
+            "fieldName": "parent2",
             "propertyChain": [
                 "http://www.geonames.org/ontology#parentADM2",
                 "http://www.w3.org/2004/02/skos/core#altLabel"
@@ -135,7 +135,7 @@ inst:places :createConnector '''
             "objectFields": []
         },
         {
-            "fieldName": "parentCountry",
+            "fieldName": "country_prefLabel",
             "propertyChain": [
                 "http://www.geonames.org/ontology#parentCountry",
                 "http://www.geonames.org/ontology#name"
@@ -150,7 +150,7 @@ inst:places :createConnector '''
             "objectFields": []
         },
         {
-            "fieldName": "parentCountryAlt",
+            "fieldName": "country",
             "propertyChain": [
                 "http://www.geonames.org/ontology#parentCountry",
                 "http://www.w3.org/2004/02/skos/core#altLabel"

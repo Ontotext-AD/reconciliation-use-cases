@@ -1,17 +1,17 @@
 PREFIX :<http://www.ontotext.com/connectors/elasticsearch#>
 PREFIX inst:<http://www.ontotext.com/connectors/elasticsearch/instance#>
 INSERT DATA {
-  inst:locations :dropConnector [] .
+  inst:landmarks :dropConnector [] .
 };
 INSERT DATA {
-inst:locations :createConnector '''
+inst:landmarks :createConnector '''
 {
     "fields": [
         {
             "propertyChain": [
                 "$self"
             ],
-            "fieldName": "id",
+            "fieldName": "landmark_id",
             "multivalued": false,
             "ignoreInvalidValues": true
         },
@@ -30,7 +30,7 @@ inst:locations :createConnector '''
             "objectFields": []
         },
         {
-            "fieldName": "place",
+            "fieldName": "place_id",
             "propertyChain": [
                 "http://schema.org/containedInPlace"
             ],
@@ -44,7 +44,7 @@ inst:locations :createConnector '''
             "objectFields": []
         },
         {
-            "fieldName": "placeLabel",
+            "fieldName": "place_prefLabel",
             "propertyChain": [
                 "http://schema.org/containedInPlace",
                 "http://www.geonames.org/ontology#name"
@@ -73,7 +73,7 @@ inst:locations :createConnector '''
             "objectFields": []
         },
         {
-            "fieldName": "locationName",
+            "fieldName": "landmark",
             "propertyChain": [
                 "http://schema.org/name"
             ],
