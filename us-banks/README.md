@@ -24,7 +24,7 @@ The Knowledge Graph contains the following entities
 * The administrative territorial hierarchy of the world. All the countries and their administrative divisions from geonames (451379 entities)
 * Populated places for Europe and North America. (888968 entities) 
 * Alternative labels in english for the locations (harvested from wikidata)
-* Buildings with their name and location (245388 entities). Close to 600 of these buildings are banks and have corresponding matches in the tabular data.  
+* Landmarks with their name and location (245388 entities). Close to 600 of these landmarks are bank buildings and have corresponding matches in the tabular data.  
 
 This diagram shows how places are attached to their corresponding feature from Geonames 
 as well as the relevant part of the administrative hierarchy needed to solve the reconciliation case.
@@ -62,6 +62,7 @@ starting from th less ambiguous to the more ambiguous
 Reconcile the unambiguous entities using their shared identifiers. 
 In this case this is the `CHARTER NO` column 
 and the value of the `ex:charter` relation for about 100 entities
+
 
 ### Match using string matching 
 
@@ -130,7 +131,7 @@ The reconciliation service configuration is in the [config](config) folder
 2. Start the reconciliation service docker `docker-compose -f docker-compose.yml up -d`
 3. Access GraphDB at `localhost:7400` 
 4. Load all the RDF data from [data/kb/ttl](data/kb/ttl). 
-5. Create the elasticsearch connectors by executing the two sparql queries [locations.sparql](config/reconciliator/locations.sparql) and [place.sparql](config/reconciliator/place.sparql)
+5. Create the elasticsearch connectors by executing the two sparql queries [locations.sparql](config/reconciliator/landmarks.sparql) and [place.sparql](config/reconciliator/places.sparql)
 
 ### Matching workflow using Ontotext Refine
 
@@ -140,19 +141,19 @@ Create a project using the tabular data from [data/tabular/national-bank.tsv]
 
 Register the reconciliation endpoints.
 * `http://localhost:8085/places` - for the Geonames entities 
-* `http://localhost:8085/locations` - for the Locations 
+* `http://localhost:8085/landmarks` - for the landmarks 
 
 First match the geographical entities using the `places` reconciliation endpoint: 
 
 Matching  the `CITY` column alone will be ambiguous,
 due to the high number of cities with the same name.
-For this reason add details from another column, "STATE", which should match with the content of the "ParentADM1Alt" field, 
+For this reason add details from another column, "STATE", which should match with the content of the `parent1` field, 
 which contains the alternative labels of all the administrative entities of level 1. 
 
 ![places-recon](img/places-OR-recon.png)
 
-Once the process is finished we can match the banks against the `locations` endpoint. 
-To do this match the 'NAME' column and add the details from the 'CITY' column as the 'place' field.
+Once the process is finished we can match the banks against the `landmarks` endpoint. 
+To do this match the 'NAME' column and add the details from the 'CITY' column as the `place_id` field.
 Note that the type suggestion service correctly identifies "bank building" as the correct type.
 
 ![location-recon](img/locations-OR-recon.png)
