@@ -119,9 +119,14 @@ select * where {
 }
 ```
 
-## Ontotext Reconciliation configuration
+## Public service
 
-## Service configuration
+Instances of the reconciliation services
+described here currently run at:
+* <https://recon-demo.ontotext.com/places>
+* <https://recon-demo.ontotext.com/landmarks>
+
+## Ontotext Reconciliation configuration
 
 The reconciliation service configuration is in the [config](config) folder
 
