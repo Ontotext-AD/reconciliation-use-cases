@@ -165,7 +165,8 @@ select * where {
 }
 ```
 
-### Create and add new entities
+### WIP: Create and add new entities
+
 
 Some entities from the tabular data are not present in the KG.
 They should be created using Ontotext Refine
