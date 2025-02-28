@@ -44,101 +44,34 @@ Each line contains information about one bank in the US.
 * Locations are a place and US state, where the state is identified by a two-letter code.
 
 ```tsv
-18609   First National Bank     Spearman        TX      26219   266066
-21793   First National Bank     Oldham          SD      25894   944355
-10004   First National Bank     Paragould       AR      3887    42448
-3105    First National Bank     Waverly         IA      4519    376442
-10465   First National Bank     Cloverdale      IN      4324    60648
+ID        NAME	                  CITY	          STATE	  CERT	  RSSD
+18609     First National Bank     Spearman        TX      26219   266066
+21793     First National Bank     Oldham          SD      25894   944355
+10004     First National Bank     Paragould       AR      3887    42448
+3105      First National Bank     Waverly         IA      4519    376442
+10465     First National Bank     Cloverdale      IN      4324    60648
 ```
+## Reconciliation service
 
-## Points of overlap 
-
-The reconciliation process has roughly three stages,
-corresponding to different levels of overlap,
-starting from th less ambiguous to the more ambiguous
-
-### Match using shared identifiers
-
-Reconcile the unambiguous entities using their shared identifiers. 
-In this case this is the `CHARTER NO` column 
-and the value of the `ex:charter` relation for about 100 entities
-
-
-### Match using string matching 
-
-For the rest of the entities we can not rely on shared identifiers, 
-but only on string matching between the labels.
-Given that labels aren't unique, we must rely on some element of their context in order to disambiguate.
-Here this is the geographic location. 
-First need to match the `STATE` column to entities corresponding to US states, using the `skos:altLabels`.
-
-This query selects all the US states and their alt labels
-```sparql
-PREFIX gn: <http://www.geonames.org/ontology#>
-PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
-PREFIX gn: <http://www.geonames.org/ontology#>
-select * where {
-    ?s a gn:Feature ;
-    gn:name ?name ;
-    skos:altLabel ?altLabel ;
-    gn:featureCode <https://www.geonames.org/ontology#A.ADM1> ;
-    gn:countryCode "US" .
-}
-```
-
-Then we need to match the `CITY` column to `gn:Features` of gn:featureClass "P" (populated place), 
-which are located in the corresponding state.
-
-This query matches all the cities in Texas
-
-```sparql
-PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
-PREFIX gn: <http://www.geonames.org/ontology#>
-select * where {
-    ?s a gn:Feature ;
-    gn:name ?name ;
-    skos:altLabel ?altLabel ;
-    gn:featureClass <https://www.geonames.org/ontology#P> ;
-    gn:parentADM1 <https://sws.geonames.org/4736286/> ; #Texas
-    . 
-}
-```
-
-Finally the `NAME` column should be matched against entities of type `s:Place` ;
-located (`s:conatinedinPlace`) in the corresponding City.
-
-This query selects all places in Houston. 
-```sparql
-PREFIX s: <http://schema.org/>
-PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
-PREFIX gn: <http://www.geonames.org/ontology#>
-select * where {
-    ?s a s:Place ;
-    s:name ?name ;
-    s:containedInPlace <https://sws.geonames.org/4699066/> .
-}
-```
-
-## Public service
+### Public service
 
 Instances of the reconciliation services
 described here currently run at:
 * <https://recon-demo.ontotext.com/places>
 * <https://recon-demo.ontotext.com/landmarks>
 
-## Ontotext Reconciliation configuration
+### Local Service Configuration
 
-The reconciliation service configuration is in the [config](config) folder
-
-## Service setup
+These are instructions how to run the service locally.
+The configuration files are in the [config](config) folder.
 
 1. Obtain a valid Ontotext GraphDB SE licence and add it in this project at `config/gdb/graphdb.license` 
 2. Start the reconciliation service docker `docker-compose -f docker-compose.yml up -d`
 3. Access GraphDB at `localhost:7400` 
-4. Load all the RDF data from [data/kb/ttl](data/kb/ttl). 
-5. Create the elasticsearch connectors by executing the two sparql queries [landmarks.sparql](config/reconciliator/landmarks.sparql) and [place.sparql](config/reconciliator/places.sparql)
+4. Load the RDF data from [us-banks-recon-kb.ttl.zip](data/kb/us-banks-recon-kb.ttl.zip). N.B the file is tracked using [git-lfs](https://git-lfs.com/). 
+5. Create the elasticsearch connectors by executing the two SPARQL queries [landmarks.sparql](config/reconciliator/landmarks.sparql) and [place.sparql](config/reconciliator/places.sparql) 
 
-### Matching workflow using Ontotext Refine
+## Matching workflow using Ontotext Refine
 
 Download and run latest [Ontotext Refine](https://www.ontotext.com/products/ontotext-refine/).
 
@@ -163,7 +96,76 @@ Note that the type suggestion service correctly identifies "bank building" as th
 
 ![landmarks-recon](img/landmarks-OR-recon.png)
 
-### WIP: Create and add new entities
+## Different stages of the reconciliation process
+
+The reconciliation process has roughly three stages,
+corresponding to different levels of overlap,
+starting from th less ambiguous to the more ambiguous
+
+### Match using shared identifiers
+
+Reconcile the unambiguous entities using their shared identifiers.
+In this case this is the `CHARTER NO` column
+and the value of the `ex:charter` relation for about 100 entities
+
+_This is currently not part of the service_
+
+### Match using string matching
+
+For the rest of the entities we can not rely on shared identifiers,
+but only on string matching between the labels.
+Given that labels aren't unique, we must rely on some element of their context in order to disambiguate.
+Here this is the geographic location.
+First need to match the `STATE` column to entities corresponding to US states, using the `skos:altLabels`.
+
+This query selects all the US states and their alt labels
+```sparql
+PREFIX gn: <http://www.geonames.org/ontology#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX gn: <http://www.geonames.org/ontology#>
+select * where {
+    ?s a gn:Feature ;
+    gn:name ?name ;
+    skos:altLabel ?altLabel ;
+    gn:featureCode <https://www.geonames.org/ontology#A.ADM1> ;
+    gn:countryCode "US" .
+}
+```
+
+Then we need to match the `CITY` column to `gn:Features` of gn:featureClass "P" (populated place),
+which are located in the corresponding state.
+
+This query matches all the cities in Texas
+
+```sparql
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX gn: <http://www.geonames.org/ontology#>
+select * where {
+    ?s a gn:Feature ;
+    gn:name ?name ;
+    skos:altLabel ?altLabel ;
+    gn:featureClass <https://www.geonames.org/ontology#P> ;
+    gn:parentADM1 <https://sws.geonames.org/4736286/> ; #Texas
+    . 
+}
+```
+
+Finally the `NAME` column should be matched against entities of type `s:Place` ;
+located (`s:conatinedinPlace`) in the corresponding City.
+
+This query selects all places in Houston.
+```sparql
+PREFIX s: <http://schema.org/>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX gn: <http://www.geonames.org/ontology#>
+select * where {
+    ?s a s:Place ;
+    s:name ?name ;
+    s:containedInPlace <https://sws.geonames.org/4699066/> .
+}
+```
+
+### Create and add new entities
 
 Some entities from the tabular data are not present in the KG.
 They should be created using Ontotext Refine
